@@ -1,0 +1,15 @@
+{
+    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-20.0.2",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-20",
+            "path": "C:\\Program Files\\Java\\jdk-20.0.2",
+            "default": true
+        }
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "C:/Program Files/Java/javafx-sdk-21.0.1/lib/*.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
