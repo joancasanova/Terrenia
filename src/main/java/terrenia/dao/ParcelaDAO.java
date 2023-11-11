@@ -9,20 +9,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Clase que gestiona las operaciones de base de datos para las parcelas.
+ * Incluye métodos para insertar, buscar, actualizar y eliminar parcelas.
+ */
 public class ParcelaDAO {
 
     private final DatabaseConnector connector = DatabaseConnector.getInstance();
 
-    // Método para insertar una nueva parcela
-    public String insertParcela(int id_terreno, double tamaño, String limites, String ubicacion, Boolean alquilada) {
+    /**
+     * Inserta una nueva parcela en la base de datos.
+     *
+     * @param parcela El objeto Parcela con la información a insertar.
+     * @return Un mensaje indicando el resultado de la operación.
+     * @throws SQLException
+     */
+    public String insertParcela(Parcela parcela) throws SQLException {
         String sql = "INSERT INTO Parcelas (tamaño, limites, ubicacion, id_terreno, alquilada) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setDouble(1, tamaño);
-            pstmt.setString(2, limites);
-            pstmt.setString(3, ubicacion);
-            pstmt.setInt(4, id_terreno);
-            pstmt.setBoolean(5, alquilada);
+            pstmt.setDouble(1, parcela.getTamaño());
+            pstmt.setString(2, parcela.getLimites());
+            pstmt.setString(3, parcela.getUbicacion());
+            pstmt.setInt(4, parcela.getId_terreno());
+            pstmt.setBoolean(5, parcela.getAlquilada());
     
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -38,16 +48,22 @@ public class ParcelaDAO {
                 return "Hubo un problema al agregar el terreno";
             }
         } catch (SQLException e) {
-            return e.toString();
+            throw new SQLException(e);
         }
     }
 
-    // Método para obtener una parcela por ID
-    public Parcela findParcelaById(int idParcela) throws SQLException {
+    /**
+     * Obtiene una parcela por su ID de la base de datos.
+     *
+     * @param parcela Objeto Parcela con el ID de la parcela a buscar.
+     * @return Objeto Parcela con los datos de la parcela encontrada, o null si no se encuentra.
+     * @throws SQLException
+     */
+    public Parcela findParcelaById(Parcela parcela) throws SQLException {
         String sql = "SELECT * FROM Parcelas WHERE id_parcela = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idParcela);
+            pstmt.setInt(1, parcela.getId_parcela());
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Parcela(
@@ -65,17 +81,22 @@ public class ParcelaDAO {
         return null;
     }
 
-    // Método para actualizar una parcela
-    public String updateParcela(Parcela parcela) {
-        String sql = "UPDATE Parcelas SET tamaño = ?, limites = ?, ubicacion = ?, id_terreno = ?, alquilada = ? WHERE id_parcela = ?";
+    /**
+     * Actualiza los detalles de una parcela existente en la base de datos.
+     *
+     * @param parcela Objeto Parcela con los datos actualizados.
+     * @return Un mensaje indicando el resultado de la operación.
+     * @throws SQLException
+     */
+    public String updateParcela(Parcela parcela) throws SQLException {
+        String sql = "UPDATE Parcelas SET tamaño = ?, limites = ?, ubicacion = ?, alquilada = ? WHERE id_parcela = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setDouble(1, parcela.getTamaño());
             pstmt.setString(2, parcela.getLimites());
             pstmt.setString(3, parcela.getUbicacion());
-            pstmt.setInt(4, parcela.getId_terreno());
-            pstmt.setBoolean(5, parcela.getAlquilada());
-            pstmt.setInt(6, parcela.getId_parcela());
+            pstmt.setBoolean(4, parcela.getAlquilada());
+            pstmt.setInt(5, parcela.getId_parcela());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 return "Parcela modificada correctamente";
@@ -84,16 +105,22 @@ public class ParcelaDAO {
                 return "Hubo un problema en la modificacion de la parcela";
             }
         } catch (SQLException e) {
-            return e.toString();
+            throw new SQLException(e);
         }
     }
 
-    // Método para eliminar una parcela
-    public String deleteParcela(int idParcela) {
+    /**
+     * Elimina una parcela de la base de datos.
+     *
+     * @param parcela Objeto Parcela que representa la parcela a eliminar.
+     * @return Un mensaje indicando el resultado de la operación.
+     * @throws SQLException
+     */
+    public String deleteParcela(Parcela parcela) throws SQLException {
         String sql = "DELETE FROM Parcelas WHERE id_parcela = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idParcela);
+            pstmt.setInt(1, parcela.getId_parcela());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 return "Parcela eliminada correctamente";
@@ -102,7 +129,7 @@ public class ParcelaDAO {
                 return "Hubo un problema al eliminar la parcela";
             }
         } catch (SQLException e) {
-            return e.toString();
+            throw new SQLException(e);
         }
     }
 }

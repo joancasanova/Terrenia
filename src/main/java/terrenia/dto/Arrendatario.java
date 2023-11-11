@@ -12,14 +12,17 @@ public class Arrendatario {
     private Date fechaRegistro;
 
 
-    public Arrendatario(String DNI, String nombre, int edad, String sexo, String email, String info_ingreso, Date fechaRegistro) {
-        this.DNI = DNI;
-        this.nombre = nombre;
-        this.edad = edad;
-        this.sexo = sexo;
-        this.email = email;
-        this.info_ingreso = info_ingreso;
-        this.fechaRegistro = fechaRegistro;
+    public Arrendatario() {
+    }
+
+    public Arrendatario(String DNI, String nombre, int edad, String sexo, String email, String info_ingreso, Date fechaRegistro) throws IllegalArgumentException {
+        setDNI(DNI);
+        setNombre(nombre);
+        setEdad(edad);
+        setEmail(email);
+        setInfo_ingreso(info_ingreso);
+        setFechaRegistro(fechaRegistro);
+        setSexo(sexo);
     }
 
     public String getDNI() {
@@ -67,7 +70,11 @@ public class Arrendatario {
     }
 
     public void setInfo_ingreso(String info_ingreso) {
-        this.info_ingreso = info_ingreso;
+        if ("nomina".equals(info_ingreso) || "contrato".equals(info_ingreso) || "aval_bancario".equals(info_ingreso) || "aval_persona".equals(info_ingreso)) {
+            this.info_ingreso = info_ingreso;
+        } else {
+            throw new IllegalArgumentException("Informacion de ingreso no valida. Debe ser nomina, contrato, aval de trabajo, aval bancario.");
+        }
     }
 
     public Date getFechaRegistro() {

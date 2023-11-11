@@ -103,7 +103,6 @@ public class ParcelaPanel extends JPanel {
     private void actualizarParcela() {
         String resultado = parcelaService.actualizarParcela(
             Integer.parseInt(idParcelaField.getText()),
-            Integer.parseInt(idTerrenoField.getText()),
             Double.parseDouble(tamanoField.getText()),
             limitesField.getText(),
             ubicacionField.getText(),

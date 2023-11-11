@@ -14,23 +14,58 @@ public class ParcelaService {
     }
 
     public String agregarParcela(int id_terreno, double tamaño, String limites, String ubicacion, Boolean alquilada) {
-        return parcelaDAO.insertParcela(id_terreno, tamaño, ubicacion, ubicacion, alquilada);
-    }
-
-    public String obtenerParcelaPorId(int idParcela) {
         try {
-            return parcelaDAO.findParcelaById(idParcela).toString();
+            Parcela parcela = new Parcela();
+            parcela.setId_terreno(id_terreno);
+            parcela.setTamaño(tamaño);
+            parcela.setLimites(limites);
+            parcela.setUbicacion(ubicacion);
+            parcela.setAlquilada(alquilada);   
+
+            return parcelaDAO.insertParcela(parcela);
+        } catch (IllegalArgumentException e) {
+            return "Error: " + e.getMessage();
         } catch (SQLException e) {
-            return e.toString();
+            return "Error en la base de datos: " + e.getMessage();
         }
     }
 
-    public String actualizarParcela(int id_parcela, int id_terreno, double tamaño, String limites, String ubicacion, Boolean alquilada) {
-        Parcela parcela = new Parcela(id_parcela, id_terreno, tamaño, ubicacion, ubicacion, alquilada);
-        return parcelaDAO.updateParcela(parcela);
+    public String obtenerParcelaPorId(int idParcela) {
+        Parcela parcela = new Parcela();
+        parcela.setId_parcela(idParcela);
+        try {
+            return parcelaDAO.findParcelaById(parcela).toString();
+        } catch (SQLException e) {
+            return "Error en la base de datos: " + e.getMessage();
+        } catch (NullPointerException e) {
+            return "Error: No existe la parcela con id: " + idParcela;
+        }
     }
 
+    public String actualizarParcela(int id_parcela, double tamaño, String limites, String ubicacion, Boolean alquilada) {
+        try {
+            Parcela parcela = new Parcela();
+            parcela.setTamaño(tamaño);
+            parcela.setLimites(limites);
+            parcela.setUbicacion(ubicacion);
+            parcela.setAlquilada(alquilada);   
+            parcela.setId_parcela(id_parcela);
+            return parcelaDAO.updateParcela(parcela);
+        } catch (IllegalArgumentException e) {
+            return "Error: " + e.getMessage();
+        } catch (SQLException e) {
+            return "Error en la base de datos: " + e.getMessage();
+        }
+    }
+    
+
     public String eliminarParcela(int idParcela) {
-        return parcelaDAO.deleteParcela(idParcela);
+        Parcela parcela = new Parcela();
+        parcela.setId_parcela(idParcela);
+        try {
+            return parcelaDAO.deleteParcela(parcela);
+        } catch (SQLException e) {
+            return "Error en la base de datos: " + e.getMessage();
+        }
     }
 }

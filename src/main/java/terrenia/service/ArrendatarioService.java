@@ -14,25 +14,48 @@ public class ArrendatarioService {
     }
 
     public String agregarArrendatario(String DNI, String nombre, int edad, String sexo, String email, String infoIngreso, Date fechaRegistro) {
-        Arrendatario arrendatario = new Arrendatario(DNI, nombre, edad, sexo, email, infoIngreso, fechaRegistro);
-        return arrendatarioDAO.insertArrendatario(arrendatario);
+        try {
+            Arrendatario arrendatario = new Arrendatario(DNI, nombre, edad, sexo, email, infoIngreso, fechaRegistro);
+            return arrendatarioDAO.insertArrendatario(arrendatario);
+        } catch (IllegalArgumentException e) {
+            return "Error: " + e.getMessage();
+        } catch (SQLException e) {
+            return "Error en la base de datos: " + e.getMessage();
+        }
     }
+    
 
     public String eliminarArrendatario(String DNI) {
-        return arrendatarioDAO.deleteArrendatario(DNI);
+        Arrendatario arrendatario = new Arrendatario();
+        arrendatario.setDNI(DNI);
+        try {
+            return arrendatarioDAO.deleteArrendatario(arrendatario);
+        } catch (SQLException e) {
+            return "Error en la base de datos: " + e.getMessage();
+        }
     }
 
     public String consultarArrendatario(String DNI) {
+        Arrendatario arrendatario = new Arrendatario();
+        arrendatario.setDNI(DNI);
         try {
-            return arrendatarioDAO.findArrendatarioByDNI(DNI).toString();
+            return arrendatarioDAO.findArrendatarioByDNI(arrendatario).toString();
         } catch (SQLException e) {
-            return e.toString();
+            return "Error en la base de datos: " + e.getMessage();
+        } catch (NullPointerException e) {
+            return "Error: No existe el arrendatario con DNI: " + DNI;
         }
     }
 
     public String modificarArrendatario(String DNI, String nombre, int edad, String sexo, String email, String infoIngreso) {
-        Arrendatario arrendatario = new Arrendatario(DNI, nombre, edad, sexo, email, infoIngreso, null);
-        return arrendatarioDAO.updateArrendatario(arrendatario);
+        try {
+            Arrendatario arrendatario = new Arrendatario(DNI, nombre, edad, sexo, email, infoIngreso, null);
+            return arrendatarioDAO.updateArrendatario(arrendatario);
+        } catch (IllegalArgumentException e) {
+            return "Error: " + e.getMessage();
+        } catch (SQLException e) {
+            return "Error en la base de datos: " + e.getMessage();
+        }
     }
 
 }

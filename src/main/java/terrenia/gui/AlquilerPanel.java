@@ -80,7 +80,7 @@ public class AlquilerPanel extends JPanel {
                 idArrendatarioField.getText(),
                 fechaInicio,
                 importe,
-                periodoField.getText()
+                Integer.parseInt(periodoField.getText())
         );
         mostrarMensaje(resultado);
     }

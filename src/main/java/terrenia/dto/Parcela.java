@@ -4,17 +4,20 @@ public class Parcela {
     private int id_parcela;
     private int id_terreno;
     private double tamaño;
-    private String limites;
-    private String ubicacion;
+    private String limites; // Coordenadas
+    private String ubicacion; // Puntos cardinales
     private Boolean alquilada;
 
-    public Parcela(int id_parcela, int id_terreno, double tamaño, String limites, String ubicacion, Boolean alquilada) {
-        this.id_parcela = id_parcela;
-        this.id_terreno = id_terreno;
-        this.tamaño = tamaño;
-        this.limites = limites;
-        this.ubicacion = ubicacion;
-        this.alquilada = alquilada;
+    public Parcela() {
+    }
+
+    public Parcela(int id_parcela, int id_terreno, double tamaño, String limites, String ubicacion, Boolean alquilada) throws IllegalArgumentException {
+        setId_parcela(id_parcela);
+        setId_terreno(id_terreno);
+        setLimites(limites);
+        setTamaño(tamaño);
+        setUbicacion(ubicacion);
+        setAlquilada(alquilada);
     }
 
     public int getId_parcela() {
@@ -53,7 +56,12 @@ public class Parcela {
         return this.ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(String ubicacion) throws IllegalArgumentException {
+        if ("norte".equals(ubicacion) || "sur".equals(ubicacion) || "este".equals(ubicacion) || "oeste".equals(ubicacion)) {
+            this.ubicacion = ubicacion;
+        } else {
+            throw new IllegalArgumentException("Ubicacion no valida. Debe ser norte, sur, este, oeste.");
+        }
         this.ubicacion = ubicacion;
     }
 
