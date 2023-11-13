@@ -76,7 +76,7 @@ public class TerrenoDAO {
         }
         return null;
     }
-
+    
     /**
      * Actualiza los detalles de un terreno existente en la base de datos.
      *
@@ -84,6 +84,7 @@ public class TerrenoDAO {
      * @return String Mensaje indicando el resultado de la operación.
      * @throws SQLException
      */
+    /* 
     public String updateTerreno(Terreno terreno) throws SQLException {
         String sql = "UPDATE Terrenos SET tamaño = ?, tipo_terreno = ?, ubicacion = ? WHERE ID = ?";
         try (Connection conn = connector.getConnection();
@@ -103,6 +104,7 @@ public class TerrenoDAO {
             throw new SQLException(e);
         }
     }
+    */
 
     /**
      * Elimina un terreno de la base de datos.

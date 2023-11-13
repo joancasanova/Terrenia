@@ -41,7 +41,8 @@ public class ParcelaService {
             return "Error: No existe la parcela con id: " + idParcela;
         }
     }
-
+    
+    /* 
     public String actualizarParcela(int id_parcela, double tamaño, String limites, String ubicacion, Boolean alquilada) {
         try {
             Parcela parcela = new Parcela();
@@ -56,7 +57,7 @@ public class ParcelaService {
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         }
-    }
+    } */
     
 
     public String eliminarParcela(int idParcela) {

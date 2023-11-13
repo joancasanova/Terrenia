@@ -10,7 +10,7 @@ public class TerrenoPanel extends JPanel {
 
     private TerrenoService terrenoService;
     private JTextField idField, tamañoField, tipoDeTerrenoField, ubicacionField;
-    private JButton addButton, deleteButton, consultButton, updateButton;
+    private JButton addButton, deleteButton, consultButton;
 
     public TerrenoPanel(TerrenoService terrenoService) {
         this.terrenoService = terrenoService;
@@ -61,13 +61,14 @@ public class TerrenoPanel extends JPanel {
         });
         buttonPanel.add(consultButton);
 
+        /*         
         updateButton = new JButton("Modificar");
         updateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 modificarTerreno();
             }
         });
-        buttonPanel.add(updateButton);
+        buttonPanel.add(updateButton); */
 
         add(inputPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -96,6 +97,7 @@ public class TerrenoPanel extends JPanel {
         mostrarMensaje(resultado);
     }
 
+    /*     
     private void modificarTerreno() {
         String resultado = terrenoService.modificarTerreno(
             Integer.parseInt(idField.getText()),
@@ -104,7 +106,7 @@ public class TerrenoPanel extends JPanel {
             ubicacionField.getText()
         );
         mostrarMensaje(resultado);
-    }
+    } */
 
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);

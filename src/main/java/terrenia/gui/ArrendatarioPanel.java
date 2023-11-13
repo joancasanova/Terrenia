@@ -68,14 +68,14 @@ public class ArrendatarioPanel extends JPanel {
             }
         });
         buttonPanel.add(consultButton);
-
+        /* 
         updateButton = new JButton("Modificar");
         updateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 modificarArrendatario();
             }
         });
-        buttonPanel.add(updateButton);
+        buttonPanel.add(updateButton); */
 
         add(inputPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -105,7 +105,7 @@ public class ArrendatarioPanel extends JPanel {
         String resultado = arrendatarioService.consultarArrendatario(dniField.getText());
         mostrarMensaje(resultado);
     }
-
+    /* 
     private void modificarArrendatario() {
         String resultado = arrendatarioService.modificarArrendatario(
             dniField.getText(),
@@ -116,7 +116,7 @@ public class ArrendatarioPanel extends JPanel {
             infoIngresoField.getText()
         );
         mostrarMensaje(resultado);
-    }
+    } */
 
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);

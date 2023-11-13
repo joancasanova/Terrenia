@@ -82,6 +82,7 @@ public class ArrendatarioDAO {
      * @return String Mensaje de resultado de la operación.
      * @throws SQLException
      */
+    /* 
     public String updateArrendatario(Arrendatario arrendatario) throws SQLException {
         String sql = "UPDATE Arrendatarios SET nombre = ?, edad = ?, sexo = ?, email = ?, info_ingreso = ? WHERE DNI = ?";
         try (Connection conn = connector.getConnection();
@@ -102,7 +103,7 @@ public class ArrendatarioDAO {
         } catch (SQLException e) {
             throw new SQLException(e);
         }
-    }
+    } */
 
     /**
      * Elimina un arrendatario de la base de datos usando su DNI.

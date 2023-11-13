@@ -40,6 +40,7 @@ public class TerrenoService {
     }
 
     // R3 - Modificar terreno
+    /*     
     public String modificarTerreno(int id, double tamaño, String tipoDeTerreno, String ubicación) {
         try {
             Terreno terreno = new Terreno(id, tamaño, tipoDeTerreno, ubicación);
@@ -49,7 +50,7 @@ public class TerrenoService {
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         }
-    }
+    } */
 
     // R4 - Consultar terreno
     public String consultarTerreno(int id) {

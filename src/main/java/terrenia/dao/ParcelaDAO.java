@@ -88,6 +88,7 @@ public class ParcelaDAO {
      * @return Un mensaje indicando el resultado de la operación.
      * @throws SQLException
      */
+    /* 
     public String updateParcela(Parcela parcela) throws SQLException {
         String sql = "UPDATE Parcelas SET tamaño = ?, limites = ?, ubicacion = ?, alquilada = ? WHERE id_parcela = ?";
         try (Connection conn = connector.getConnection();
@@ -107,7 +108,7 @@ public class ParcelaDAO {
         } catch (SQLException e) {
             throw new SQLException(e);
         }
-    }
+    } */
 
     /**
      * Elimina una parcela de la base de datos.

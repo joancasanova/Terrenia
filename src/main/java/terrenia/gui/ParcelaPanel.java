@@ -61,14 +61,14 @@ public class ParcelaPanel extends JPanel {
             }
         });
         buttonPanel.add(getButton);
-
+        /* 
         updateButton = new JButton("Actualizar");
         updateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 actualizarParcela();
             }
         });
-        buttonPanel.add(updateButton);
+        buttonPanel.add(updateButton); */
 
         deleteButton = new JButton("Eliminar");
         deleteButton.addActionListener(new ActionListener() {
@@ -99,7 +99,7 @@ public class ParcelaPanel extends JPanel {
         );
         mostrarMensaje(resultado);
     }
-
+    /* 
     private void actualizarParcela() {
         String resultado = parcelaService.actualizarParcela(
             Integer.parseInt(idParcelaField.getText()),
@@ -109,7 +109,7 @@ public class ParcelaPanel extends JPanel {
             alquiladaCheckBox.isSelected()
         );
         mostrarMensaje(resultado);
-    }
+    } */
 
     private void eliminarParcela() {
         String resultado = parcelaService.eliminarParcela(
