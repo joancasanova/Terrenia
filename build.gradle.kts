@@ -16,6 +16,8 @@ repositories {
 
 dependencies {
     implementation("com.microsoft.sqlserver:mssql-jdbc:12.4.2.jre8")
+    implementation("javax.mail:javax.mail-api:1.6.2")
+    implementation("com.sun.mail:javax.mail:1.6.2")
 }
 
 java {

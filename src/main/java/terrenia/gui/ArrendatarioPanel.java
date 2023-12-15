@@ -2,121 +2,331 @@ package terrenia.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import terrenia.service.ArrendatarioService;
 
 public class ArrendatarioPanel extends JPanel {
 
     private ArrendatarioService arrendatarioService;
-    private JTextField dniField, nombreField, edadField, sexoField, emailField, infoIngresoField;
-    private JButton addButton, deleteButton, consultButton, updateButton;
+    private JTabbedPane tabbedPane;
+
+    private JTextField nombreFieldAgregar, dniFieldAgregar, edadFieldAgregar, sexoFieldAgregar, emailFieldAgregar,
+            infoIngresoFieldAgregar;
+    private JTextField dniFieldEliminar;
+    private JTextField dniFieldConsultar;
+    private JTextField nombreFieldModificar, edadFieldModificar, sexoFieldModificar, emailFieldModificar,
+            infoIngresoFieldModificar, dniFieldModificar;
 
     public ArrendatarioPanel(ArrendatarioService arrendatarioService) {
         this.arrendatarioService = arrendatarioService;
         setLayout(new BorderLayout());
+        initTabbedPane();
+    }
 
-        // Panel de entrada de datos
-        JPanel inputPanel = new JPanel(new GridLayout(0, 2));
-        inputPanel.add(new JLabel("DNI:"));
-        dniField = new JTextField();
-        inputPanel.add(dniField);
+    private JLabel createTabLabel(String title) {
+        JLabel label = new JLabel(title);
+        Font tabFont = new Font("Arial", Font.BOLD, 16);
+        label.setFont(tabFont);
+        label.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+        return label;
+    }
 
-        inputPanel.add(new JLabel("Nombre:"));
-        nombreField = new JTextField();
-        inputPanel.add(nombreField);
+    private void initTabbedPane() {
+        tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 
-        inputPanel.add(new JLabel("Edad:"));
-        edadField = new JTextField();
-        inputPanel.add(edadField);
+        tabbedPane.addTab("Agregar", crearPanelAgregar());
+        tabbedPane.setTabComponentAt(0, createTabLabel("Agregar"));
 
-        inputPanel.add(new JLabel("Sexo:"));
-        sexoField = new JTextField();
-        inputPanel.add(sexoField);
+        tabbedPane.addTab("Eliminar", crearPanelEliminar());
+        tabbedPane.setTabComponentAt(1, createTabLabel("Eliminar"));
 
-        inputPanel.add(new JLabel("Email:"));
-        emailField = new JTextField();
-        inputPanel.add(emailField);
+        tabbedPane.addTab("Consultar", crearPanelConsultar());
+        tabbedPane.setTabComponentAt(2, createTabLabel("Consultar"));
 
-        inputPanel.add(new JLabel("Información de Ingreso:"));
-        infoIngresoField = new JTextField();
-        inputPanel.add(infoIngresoField);
+        tabbedPane.addTab("Modificar", crearPanelModificar());
+        tabbedPane.setTabComponentAt(3, createTabLabel("Modificar"));
 
-        // Panel de botones
-        JPanel buttonPanel = new JPanel();
+        add(tabbedPane, BorderLayout.CENTER);
+    }
 
-        addButton = new JButton("Agregar");
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                agregarArrendatario();
-            }
-        });
-        buttonPanel.add(addButton);
+    private JPanel crearPanelAgregar() {
+        JPanel panelAgregar = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 5, 2, 5);
 
-        deleteButton = new JButton("Eliminar");
-        deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                eliminarArrendatario();
-            }
-        });
-        buttonPanel.add(deleteButton);
+        Font inputFont = new Font("Arial", Font.PLAIN, 14);
 
-        consultButton = new JButton("Consultar");
-        consultButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                consultarArrendatario();
-            }
-        });
-        buttonPanel.add(consultButton);
-        /* 
-        updateButton = new JButton("Modificar");
-        updateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                modificarArrendatario();
-            }
-        });
-        buttonPanel.add(updateButton); */
+        nombreFieldAgregar = new JTextField(20);
+        nombreFieldAgregar.setFont(inputFont);
+        dniFieldAgregar = new JTextField(20);
+        dniFieldAgregar.setFont(inputFont);
+        edadFieldAgregar = new JTextField(20);
+        edadFieldAgregar.setFont(inputFont);
+        sexoFieldAgregar = new JTextField(20);
+        sexoFieldAgregar.setFont(inputFont);
+        emailFieldAgregar = new JTextField(20);
+        emailFieldAgregar.setFont(inputFont);
+        infoIngresoFieldAgregar = new JTextField(20);
+        infoIngresoFieldAgregar.setFont(inputFont);
 
-        add(inputPanel, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.SOUTH);
+        panelAgregar.add(new JLabel("Nombre:"), gbc);
+        panelAgregar.add(nombreFieldAgregar, gbc);
+        panelAgregar.add(new JLabel("DNI:"), gbc);
+        panelAgregar.add(dniFieldAgregar, gbc);
+        panelAgregar.add(new JLabel("Edad:"), gbc);
+        panelAgregar.add(edadFieldAgregar, gbc);
+        panelAgregar.add(new JLabel("Sexo:"), gbc);
+        panelAgregar.add(sexoFieldAgregar, gbc);
+        panelAgregar.add(new JLabel("Email:"), gbc);
+        panelAgregar.add(emailFieldAgregar, gbc);
+        panelAgregar.add(new JLabel("Info Ingreso:"), gbc);
+        panelAgregar.add(infoIngresoFieldAgregar, gbc);
+
+        gbc.gridy += 15;
+        gbc.insets = new Insets(10, 5, 2, 5);
+        JButton addButton = createButton("Agregar", e -> agregarArrendatario());
+        panelAgregar.add(addButton, gbc);
+
+        return panelAgregar;
+    }
+
+    private JPanel crearPanelEliminar() {
+        JPanel panelEliminar = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 4, 2, 4);
+
+        Font inputFont = new Font("Arial", Font.PLAIN, 14);
+
+        dniFieldEliminar = new JTextField(20);
+        dniFieldEliminar.setFont(inputFont);
+
+        panelEliminar.add(new JLabel("DNI:"), gbc);
+        panelEliminar.add(dniFieldEliminar, gbc);
+
+        gbc.gridy += 10;
+        gbc.insets = new Insets(10, 5, 2, 5);
+        JButton deleteButton = createButton("Eliminar", e -> eliminarArrendatario());
+        panelEliminar.add(deleteButton, gbc);
+
+        return panelEliminar;
+    }
+
+    private JPanel crearPanelConsultar() {
+        JPanel panelConsultar = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 4, 2, 4);
+
+        Font inputFont = new Font("Arial", Font.PLAIN, 14);
+
+        dniFieldConsultar = new JTextField(20);
+        dniFieldConsultar.setFont(inputFont);
+
+        panelConsultar.add(new JLabel("DNI:"), gbc);
+        panelConsultar.add(dniFieldConsultar, gbc);
+
+        gbc.gridy += 10;
+        gbc.insets = new Insets(10, 5, 2, 5);
+        JButton consultButton = createButton("Consultar", e -> consultarArrendatario());
+        panelConsultar.add(consultButton, gbc);
+
+        return panelConsultar;
+    }
+
+    private JPanel crearPanelModificar() {
+        JPanel panelModificar = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(2, 4, 2, 4);
+
+        Font inputFont = new Font("Arial", Font.PLAIN, 14);
+
+        dniFieldModificar = new JTextField(20);
+        dniFieldModificar.setFont(inputFont);
+        nombreFieldModificar = new JTextField(20);
+        nombreFieldModificar.setFont(inputFont);
+        edadFieldModificar = new JTextField(20);
+        edadFieldModificar.setFont(inputFont);
+        sexoFieldModificar = new JTextField(20);
+        sexoFieldModificar.setFont(inputFont);
+        emailFieldModificar = new JTextField(20);
+        emailFieldModificar.setFont(inputFont);
+        infoIngresoFieldModificar = new JTextField(20);
+        infoIngresoFieldModificar.setFont(inputFont);
+
+        panelModificar.add(new JLabel("DNI:"), gbc);
+        panelModificar.add(dniFieldModificar, gbc);
+        panelModificar.add(new JLabel("Nombre:"), gbc);
+        panelModificar.add(nombreFieldModificar, gbc);
+        panelModificar.add(new JLabel("Edad:"), gbc);
+        panelModificar.add(edadFieldModificar, gbc);
+        panelModificar.add(new JLabel("Sexo:"), gbc);
+        panelModificar.add(sexoFieldModificar, gbc);
+        panelModificar.add(new JLabel("Email:"), gbc);
+        panelModificar.add(emailFieldModificar, gbc);
+        panelModificar.add(new JLabel("Info Ingreso:"), gbc);
+        panelModificar.add(infoIngresoFieldModificar, gbc);
+
+        gbc.gridy += 15;
+        gbc.insets = new Insets(10, 5, 2, 5);
+        JButton updateButton = createButton("Modificar", e -> modificarArrendatario());
+        panelModificar.add(updateButton, gbc);
+
+        return panelModificar;
+    }
+
+    private JButton createButton(String text, ActionListener action) {
+        JButton button = new JButton(text);
+        button.addActionListener(action);
+        return button;
     }
 
     private void agregarArrendatario() {
-        java.util.Date utilDate = new java.util.Date();
-
-        String resultado = arrendatarioService.agregarArrendatario(
-            dniField.getText(),
-            nombreField.getText(),
-            Integer.parseInt(edadField.getText()),
-            sexoField.getText(),
-            emailField.getText(),
-            infoIngresoField.getText(),
-            new java.sql.Date(utilDate.getTime())
-        );
-        mostrarMensaje(resultado);
+        if (validarCamposAgregar()) {
+            java.util.Date utilDate = new java.util.Date();
+            String resultado = arrendatarioService.agregarArrendatario(
+                    nombreFieldAgregar.getText(),
+                    dniFieldAgregar.getText(),
+                    Integer.parseInt(edadFieldAgregar.getText()),
+                    sexoFieldAgregar.getText(),
+                    emailFieldAgregar.getText(),
+                    infoIngresoFieldAgregar.getText(),
+                    new java.sql.Date(utilDate.getTime()));
+            mostrarMensaje(resultado);
+        }
     }
 
     private void eliminarArrendatario() {
-        String resultado = arrendatarioService.eliminarArrendatario(dniField.getText());
-        mostrarMensaje(resultado);
+        if (validarCampoDNI(dniFieldEliminar)) {
+            String resultado = arrendatarioService.eliminarArrendatario(dniFieldEliminar.getText());
+            mostrarMensaje(resultado);
+        }
     }
 
     private void consultarArrendatario() {
-        String resultado = arrendatarioService.consultarArrendatario(dniField.getText());
-        mostrarMensaje(resultado);
+        if (validarCampoDNI(dniFieldConsultar)) {
+            String resultado = arrendatarioService.consultarArrendatario(dniFieldConsultar.getText());
+            mostrarMensaje(resultado);
+        }
     }
-    /* 
+
     private void modificarArrendatario() {
-        String resultado = arrendatarioService.modificarArrendatario(
-            dniField.getText(),
-            nombreField.getText(),
-            Integer.parseInt(edadField.getText()),
-            sexoField.getText(),
-            emailField.getText(),
-            infoIngresoField.getText()
-        );
-        mostrarMensaje(resultado);
-    } */
+        if (validarCampoDNI(dniFieldModificar) && validarCamposModificar()) {
+            String resultado = arrendatarioService.modificarArrendatario(
+                    dniFieldModificar.getText(),
+                    nombreFieldModificar.getText(),
+                    Integer.parseInt(edadFieldModificar.getText()),
+                    sexoFieldModificar.getText(),
+                    emailFieldModificar.getText(),
+                    infoIngresoFieldModificar.getText());
+            mostrarMensaje(resultado);
+        }
+    }
+
+    private boolean validarCampoDNI(JTextField dniField) {
+        if (dniField.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo DNI no puede estar vacío.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarCamposAgregar() {
+        if (nombreFieldAgregar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Nombre no puede estar vacío.");
+            return false;
+        }
+
+        if (!validarCampoDNI(dniFieldAgregar)) {
+            return false;
+        }
+
+        if (edadFieldAgregar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Edad no puede estar vacío.");
+            return false;
+        }
+
+        try {
+            int edad = Integer.parseInt(edadFieldAgregar.getText());
+            if (edad <= 0) {
+                mostrarMensaje("La edad debe ser un número positivo.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("La Edad debe ser un número.");
+            return false;
+        }
+
+        if (sexoFieldAgregar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Sexo no puede estar vacío.");
+            return false;
+        }
+
+        if (emailFieldAgregar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Email no puede estar vacío.");
+            return false;
+        }
+
+        if (infoIngresoFieldAgregar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Info Ingreso no puede estar vacío.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validarCamposModificar() {
+        if (!validarCampoDNI(dniFieldModificar)) {
+            return false;
+        }
+
+        if (nombreFieldModificar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Nombre no puede estar vacío.");
+            return false;
+        }
+
+        if (edadFieldModificar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Edad no puede estar vacío.");
+            return false;
+        }
+
+        try {
+            int edad = Integer.parseInt(edadFieldModificar.getText());
+            if (edad <= 0) {
+                mostrarMensaje("La edad debe ser un número positivo.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("La Edad debe ser un número.");
+            return false;
+        }
+
+        if (sexoFieldModificar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Sexo no puede estar vacío.");
+            return false;
+        }
+
+        if (emailFieldModificar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Email no puede estar vacío.");
+            return false;
+        }
+
+        if (infoIngresoFieldModificar.getText().trim().isEmpty()) {
+            mostrarMensaje("El campo Info Ingreso no puede estar vacío.");
+            return false;
+        }
+
+        return true;
+    }
 
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);

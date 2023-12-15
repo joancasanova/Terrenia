@@ -3,7 +3,7 @@ package terrenia.dto;
 public class Terreno {
     private int id;
     private double tamaño; // Hectareas
-    private String tipoDeTerreno; // Latifundio o Finca
+    private String tipoTerreno; // Latifundio o Finca
     private String ubicación; // Municipio
 
     public Terreno() {
@@ -12,7 +12,7 @@ public class Terreno {
     public Terreno(int id, double tamaño, String tipoDeTerreno, String ubicación) throws IllegalArgumentException {
         setId(id);
         setTamaño(tamaño);
-        setTipoDeTerreno(tipoDeTerreno);
+        setTipoTerreno(tipoDeTerreno);
         setUbicación(ubicación);
     }
 
@@ -32,13 +32,13 @@ public class Terreno {
         this.tamaño = tamaño;
     }
 
-    public String getTipoDeTerreno() {
-        return this.tipoDeTerreno;
+    public String getTipoTerreno() {
+        return this.tipoTerreno;
     }
 
-    public void setTipoDeTerreno(String tipoDeTerreno) throws IllegalArgumentException {
+    public void setTipoTerreno(String tipoDeTerreno) throws IllegalArgumentException {
         if ("latifundio".equals(tipoDeTerreno) || "finca".equals(tipoDeTerreno)) {
-            this.tipoDeTerreno = tipoDeTerreno;
+            this.tipoTerreno = tipoDeTerreno;
         } else {
             throw new IllegalArgumentException("Tipo de terreno no valido. Debe ser 'latifundio' o 'finca'.");
         }
@@ -63,7 +63,7 @@ public class Terreno {
     }
 
     public Terreno tipoDeTerreno(String tipoDeTerreno) {
-        setTipoDeTerreno(tipoDeTerreno);
+        setTipoTerreno(tipoDeTerreno);
         return this;
     }
 
@@ -77,7 +77,7 @@ public class Terreno {
         return "{" +
             " id='" + getId() + "'" +
             ", tamaño='" + getTamaño() + "'" +
-            ", tipoDeTerreno='" + getTipoDeTerreno() + "'" +
+            ", tipoDeTerreno='" + getTipoTerreno() + "'" +
             ", ubicación='" + getUbicación() + "'" +
             "}";
     }

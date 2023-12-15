@@ -29,7 +29,7 @@ public class TerrenoDAO {
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setDouble(1, terreno.getTamaño());
-            pstmt.setString(2, terreno.getTipoDeTerreno());
+            pstmt.setString(2, terreno.getTipoTerreno());
             pstmt.setString(3, terreno.getUbicación());
     
             int affectedRows = pstmt.executeUpdate();
@@ -53,15 +53,15 @@ public class TerrenoDAO {
     /**
      * Busca un terreno por su ID en la base de datos.
      *
-     * @param terreno El objeto Terreno con el ID a buscar.
+     * @param idTerreno El ID a buscar.
      * @return Terreno El terreno encontrado, o null si no se encuentra.
      * @throws SQLException Si ocurre un error de SQL durante la operación.
      */
-    public Terreno findTerrenoById(Terreno terreno) throws SQLException {
+    public Terreno findTerrenoById(int idTerreno) throws SQLException {
         String sql = "SELECT * FROM Terrenos WHERE ID = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, terreno.getId());
+            pstmt.setInt(1, idTerreno);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Terreno(
@@ -84,13 +84,13 @@ public class TerrenoDAO {
      * @return String Mensaje indicando el resultado de la operación.
      * @throws SQLException
      */
-    /* 
+    
     public String updateTerreno(Terreno terreno) throws SQLException {
         String sql = "UPDATE Terrenos SET tamaño = ?, tipo_terreno = ?, ubicacion = ? WHERE ID = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setDouble(1, terreno.getTamaño());
-            pstmt.setString(2, terreno.getTipoDeTerreno());
+            pstmt.setString(2, terreno.getTipoTerreno());
             pstmt.setString(3, terreno.getUbicación());
             pstmt.setInt(4, terreno.getId());
             int affectedRows = pstmt.executeUpdate();
@@ -104,7 +104,6 @@ public class TerrenoDAO {
             throw new SQLException(e);
         }
     }
-    */
 
     /**
      * Elimina un terreno de la base de datos.

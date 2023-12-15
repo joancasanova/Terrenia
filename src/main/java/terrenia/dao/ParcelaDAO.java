@@ -31,7 +31,7 @@ public class ParcelaDAO {
             pstmt.setDouble(1, parcela.getTamaño());
             pstmt.setString(2, parcela.getLimites());
             pstmt.setString(3, parcela.getUbicacion());
-            pstmt.setInt(4, parcela.getId_terreno());
+            pstmt.setInt(4, parcela.getIdTerreno());
             pstmt.setBoolean(5, parcela.getAlquilada());
     
             int affectedRows = pstmt.executeUpdate();
@@ -55,15 +55,15 @@ public class ParcelaDAO {
     /**
      * Obtiene una parcela por su ID de la base de datos.
      *
-     * @param parcela Objeto Parcela con el ID de la parcela a buscar.
+     * @param idParcela ID de la parcela a buscar.
      * @return Objeto Parcela con los datos de la parcela encontrada, o null si no se encuentra.
      * @throws SQLException
      */
-    public Parcela findParcelaById(Parcela parcela) throws SQLException {
+    public Parcela findParcelaById(int idParcela) throws SQLException {
         String sql = "SELECT * FROM Parcelas WHERE id_parcela = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, parcela.getId_parcela());
+            pstmt.setInt(1, idParcela);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Parcela(
@@ -88,7 +88,6 @@ public class ParcelaDAO {
      * @return Un mensaje indicando el resultado de la operación.
      * @throws SQLException
      */
-    /* 
     public String updateParcela(Parcela parcela) throws SQLException {
         String sql = "UPDATE Parcelas SET tamaño = ?, limites = ?, ubicacion = ?, alquilada = ? WHERE id_parcela = ?";
         try (Connection conn = connector.getConnection();
@@ -97,7 +96,7 @@ public class ParcelaDAO {
             pstmt.setString(2, parcela.getLimites());
             pstmt.setString(3, parcela.getUbicacion());
             pstmt.setBoolean(4, parcela.getAlquilada());
-            pstmt.setInt(5, parcela.getId_parcela());
+            pstmt.setInt(5, parcela.getIdParcela());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 return "Parcela modificada correctamente";
@@ -108,7 +107,7 @@ public class ParcelaDAO {
         } catch (SQLException e) {
             throw new SQLException(e);
         }
-    } */
+    }
 
     /**
      * Elimina una parcela de la base de datos.
@@ -121,7 +120,7 @@ public class ParcelaDAO {
         String sql = "DELETE FROM Parcelas WHERE id_parcela = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, parcela.getId_parcela());
+            pstmt.setInt(1, parcela.getIdParcela());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 return "Parcela eliminada correctamente";

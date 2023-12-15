@@ -16,7 +16,7 @@ public class ParcelaService {
     public String agregarParcela(int id_terreno, double tamaño, String limites, String ubicacion, Boolean alquilada) {
         try {
             Parcela parcela = new Parcela();
-            parcela.setId_terreno(id_terreno);
+            parcela.setIdTerreno(id_terreno);
             parcela.setTamaño(tamaño);
             parcela.setLimites(limites);
             parcela.setUbicacion(ubicacion);
@@ -31,10 +31,8 @@ public class ParcelaService {
     }
 
     public String obtenerParcelaPorId(int idParcela) {
-        Parcela parcela = new Parcela();
-        parcela.setId_parcela(idParcela);
         try {
-            return parcelaDAO.findParcelaById(parcela).toString();
+            return parcelaDAO.findParcelaById(idParcela).toString();
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         } catch (NullPointerException e) {
@@ -42,7 +40,6 @@ public class ParcelaService {
         }
     }
     
-    /* 
     public String actualizarParcela(int id_parcela, double tamaño, String limites, String ubicacion, Boolean alquilada) {
         try {
             Parcela parcela = new Parcela();
@@ -50,19 +47,18 @@ public class ParcelaService {
             parcela.setLimites(limites);
             parcela.setUbicacion(ubicacion);
             parcela.setAlquilada(alquilada);   
-            parcela.setId_parcela(id_parcela);
+            parcela.setIdParcela(id_parcela);
             return parcelaDAO.updateParcela(parcela);
         } catch (IllegalArgumentException e) {
             return "Error: " + e.getMessage();
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         }
-    } */
-    
+    }
 
     public String eliminarParcela(int idParcela) {
         Parcela parcela = new Parcela();
-        parcela.setId_parcela(idParcela);
+        parcela.setIdParcela(idParcela);
         try {
             return parcelaDAO.deleteParcela(parcela);
         } catch (SQLException e) {

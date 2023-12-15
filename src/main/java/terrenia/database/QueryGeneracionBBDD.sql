@@ -46,3 +46,17 @@ CREATE TABLE Alquileres (
     PRIMARY KEY (id_parcela, fecha_inicio),
     FOREIGN KEY (id_parcela) REFERENCES Parcelas(id_parcela)
 );
+
+-- Creación de la tabla Recibos
+CREATE TABLE Recibos (
+    id_recibo INT IDENTITY(1,1) PRIMARY KEY,
+    id_area INT NOT NULL,
+    tipo_area NVARCHAR(255) NOT NULL CHECK (tipo_area IN ('latifundio', 'finca')),
+    fecha_emision DATE NOT NULL,
+    importe DECIMAL(10,2) NOT NULL,
+    IVA DECIMAL(5,2) NOT NULL,
+    IRPF DECIMAL(5,2) NOT NULL,
+    email_arrendatario NVARCHAR(255) NOT NULL,
+    cobrado BIT NOT NULL, -- 0 para no cobrado y 1 para cobrado
+    FOREIGN KEY (id_area) REFERENCES Parcelas(id_parcela)
+);

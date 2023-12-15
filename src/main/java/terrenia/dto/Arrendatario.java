@@ -8,7 +8,7 @@ public class Arrendatario {
     private int edad;
     private String sexo;
     private String email;
-    private String info_ingreso;
+    private String infoIngreso;
     private Date fechaRegistro;
 
 
@@ -20,7 +20,7 @@ public class Arrendatario {
         setNombre(nombre);
         setEdad(edad);
         setEmail(email);
-        setInfo_ingreso(info_ingreso);
+        setInfoIngreso(info_ingreso);
         setFechaRegistro(fechaRegistro);
         setSexo(sexo);
     }
@@ -65,15 +65,15 @@ public class Arrendatario {
         this.email = email;
     }
 
-    public String getInfo_ingreso() {
-        return this.info_ingreso;
+    public String getInfoIngreso() {
+        return this.infoIngreso;
     }
 
-    public void setInfo_ingreso(String info_ingreso) {
+    public void setInfoIngreso(String info_ingreso) {
         if ("nomina".equals(info_ingreso) || "contrato".equals(info_ingreso) || "aval_bancario".equals(info_ingreso) || "aval_persona".equals(info_ingreso)) {
-            this.info_ingreso = info_ingreso;
+            this.infoIngreso = info_ingreso;
         } else {
-            throw new IllegalArgumentException("Informacion de ingreso no valida. Debe ser nomina, contrato, aval de trabajo, aval bancario.");
+            throw new IllegalArgumentException("Informacion de ingreso no valida. Debe ser nomina, contrato, aval_persona, aval_bancario.");
         }
     }
 
@@ -93,7 +93,7 @@ public class Arrendatario {
             ", edad='" + getEdad() + "'" +
             ", sexo='" + getSexo() + "'" +
             ", email='" + getEmail() + "'" +
-            ", info_ingreso='" + getInfo_ingreso() + "'" +
+            ", info_ingreso='" + getInfoIngreso() + "'" +
             ", fechaRegistro='" + getFechaRegistro() + "'" +
             "}";
     }

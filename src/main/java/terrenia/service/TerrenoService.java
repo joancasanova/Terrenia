@@ -18,7 +18,7 @@ public class TerrenoService {
             Terreno terreno = new Terreno();
             terreno.setTamaño(tamaño);
             terreno.setUbicación(ubicación);
-            terreno.setTipoDeTerreno(tipoDeTerreno);
+            terreno.setTipoTerreno(tipoDeTerreno);
 
             return terrenoDAO.insertTerreno(terreno);
         } catch (IllegalArgumentException e) {
@@ -40,7 +40,6 @@ public class TerrenoService {
     }
 
     // R3 - Modificar terreno
-    /*     
     public String modificarTerreno(int id, double tamaño, String tipoDeTerreno, String ubicación) {
         try {
             Terreno terreno = new Terreno(id, tamaño, tipoDeTerreno, ubicación);
@@ -50,14 +49,12 @@ public class TerrenoService {
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         }
-    } */
+    }
 
     // R4 - Consultar terreno
     public String consultarTerreno(int id) {
-        Terreno terreno = new Terreno();
-        terreno.setId(id);
         try {
-            return terrenoDAO.findTerrenoById(terreno).toString();
+            return terrenoDAO.findTerrenoById(id).toString();
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         } catch (NullPointerException e) {

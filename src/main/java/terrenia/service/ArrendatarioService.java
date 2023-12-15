@@ -36,17 +36,15 @@ public class ArrendatarioService {
     }
 
     public String consultarArrendatario(String DNI) {
-        Arrendatario arrendatario = new Arrendatario();
-        arrendatario.setDNI(DNI);
         try {
-            return arrendatarioDAO.findArrendatarioByDNI(arrendatario).toString();
+            return arrendatarioDAO.findArrendatarioByDNI(DNI).toString();
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         } catch (NullPointerException e) {
             return "Error: No existe el arrendatario con DNI: " + DNI;
         }
     }
-    /* 
+    
     public String modificarArrendatario(String DNI, String nombre, int edad, String sexo, String email, String infoIngreso) {
         try {
             Arrendatario arrendatario = new Arrendatario(DNI, nombre, edad, sexo, email, infoIngreso, null);
@@ -56,6 +54,6 @@ public class ArrendatarioService {
         } catch (SQLException e) {
             return "Error en la base de datos: " + e.getMessage();
         }
-    } */
+    }
 
 }

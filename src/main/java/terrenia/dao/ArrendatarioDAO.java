@@ -31,7 +31,7 @@ public class ArrendatarioDAO {
             pstmt.setInt(3, arrendatario.getEdad());
             pstmt.setString(4, arrendatario.getSexo());
             pstmt.setString(5, arrendatario.getEmail());
-            pstmt.setString(6, arrendatario.getInfo_ingreso());
+            pstmt.setString(6, arrendatario.getInfoIngreso());
             pstmt.setDate(7, new java.sql.Date(arrendatario.getFechaRegistro().getTime()));
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -48,15 +48,15 @@ public class ArrendatarioDAO {
     /**
      * Busca un arrendatario en la base de datos usando su DNI.
      * 
-     * @param arrendatario El arrendatario a buscar.
+     * @param DNI El DNI del arrendatario a buscar.
      * @return Arrendatario El objeto Arrendatario encontrado, o null si no se encuentra.
      * @throws SQLException Si ocurre un error de SQL durante la búsqueda.
      */
-    public Arrendatario findArrendatarioByDNI(Arrendatario arrendatario) throws SQLException {
+    public Arrendatario findArrendatarioByDNI(String DNI) throws SQLException {
         String sql = "SELECT * FROM Arrendatarios WHERE DNI = ?";
         try (Connection conn = connector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, arrendatario.getDNI());
+            pstmt.setString(1, DNI);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Arrendatario(
@@ -82,7 +82,6 @@ public class ArrendatarioDAO {
      * @return String Mensaje de resultado de la operación.
      * @throws SQLException
      */
-    /* 
     public String updateArrendatario(Arrendatario arrendatario) throws SQLException {
         String sql = "UPDATE Arrendatarios SET nombre = ?, edad = ?, sexo = ?, email = ?, info_ingreso = ? WHERE DNI = ?";
         try (Connection conn = connector.getConnection();
@@ -91,7 +90,7 @@ public class ArrendatarioDAO {
             pstmt.setInt(2, arrendatario.getEdad());
             pstmt.setString(3, arrendatario.getSexo());
             pstmt.setString(4, arrendatario.getEmail());
-            pstmt.setString(5, arrendatario.getInfo_ingreso());
+            pstmt.setString(5, arrendatario.getInfoIngreso());
             pstmt.setString(6, arrendatario.getDNI());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -103,7 +102,7 @@ public class ArrendatarioDAO {
         } catch (SQLException e) {
             throw new SQLException(e);
         }
-    } */
+    } 
 
     /**
      * Elimina un arrendatario de la base de datos usando su DNI.

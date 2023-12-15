@@ -77,6 +77,10 @@ Asegúrese de que estos detalles coincidan con la configuración de autenticaci�
 
 Deberá crear un usuario con esos datos si no existe.
 
+## Configuración envio de recibos por correo electronico
+
+En la clase ReciboService.java, dentro del paquete service, en el metodo enviarRecibo(Recibo recibo), se pueden encontrar los campos para añadir el correo electronico desde el que realizar envios y la contraseña para dicho correo electronico. En el caso de utilizar Google como servicio gestor de correo electrónico, se debe de utilizar una contraseña de aplicación.
+
 ### Nota Final
 
 Es importante recordar que estos pasos pueden variar ligeramente dependiendo de la configuración específica de su sistema y la versión de SQL Server Express. Si encuentra problemas, contacte con el desarrollador del proyecto y le guiará en el proceso.

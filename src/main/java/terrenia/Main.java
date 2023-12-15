@@ -1,6 +1,9 @@
 package terrenia;
 
 import terrenia.gui.MainFrame;
+
+import java.io.IOException;
+
 import javax.swing.SwingUtilities;
 
 public class Main {
@@ -11,7 +14,12 @@ public class Main {
             @Override
             public void run() {
                 // Crea e inicia la ventana principal de la aplicación
-                new MainFrame();
+                try {
+                    new MainFrame();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -1,8 +1,8 @@
 package terrenia.dto;
 
 public class Parcela {
-    private int id_parcela;
-    private int id_terreno;
+    private int idParcela;
+    private int idTerreno;
     private double tamaño;
     private String limites; // Coordenadas
     private String ubicacion; // Puntos cardinales
@@ -12,28 +12,28 @@ public class Parcela {
     }
 
     public Parcela(int id_parcela, int id_terreno, double tamaño, String limites, String ubicacion, Boolean alquilada) throws IllegalArgumentException {
-        setId_parcela(id_parcela);
-        setId_terreno(id_terreno);
+        setIdParcela(id_parcela);
+        setIdTerreno(id_terreno);
         setLimites(limites);
         setTamaño(tamaño);
         setUbicacion(ubicacion);
         setAlquilada(alquilada);
     }
 
-    public int getId_parcela() {
-        return this.id_parcela;
+    public int getIdParcela() {
+        return this.idParcela;
     }
 
-    public void setId_parcela(int id_parcela) {
-        this.id_parcela = id_parcela;
+    public void setIdParcela(int id_parcela) {
+        this.idParcela = id_parcela;
     }
 
-    public int getId_terreno() {
-        return this.id_terreno;
+    public int getIdTerreno() {
+        return this.idTerreno;
     }
 
-    public void setId_terreno(int id_terreno) {
-        this.id_terreno = id_terreno;
+    public void setIdTerreno(int id_terreno) {
+        this.idTerreno = id_terreno;
     }
 
     public double getTamaño() {
@@ -78,12 +78,12 @@ public class Parcela {
     }
 
     public Parcela id_parcela(int id_parcela) {
-        setId_parcela(id_parcela);
+        setIdParcela(id_parcela);
         return this;
     }
 
     public Parcela id_terreno(int id_terreno) {
-        setId_terreno(id_terreno);
+        setIdTerreno(id_terreno);
         return this;
     }
 
@@ -110,8 +110,8 @@ public class Parcela {
     @Override
     public String toString() {
         return "{" +
-            " id_parcela='" + getId_parcela() + "'" +
-            ", id_terreno='" + getId_terreno() + "'" +
+            " id_parcela='" + getIdParcela() + "'" +
+            ", id_terreno='" + getIdTerreno() + "'" +
             ", tamaño='" + getTamaño() + "'" +
             ", limites='" + getLimites() + "'" +
             ", ubicacion='" + getUbicacion() + "'" +
