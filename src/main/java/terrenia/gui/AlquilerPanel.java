@@ -132,7 +132,7 @@ public class AlquilerPanel extends JPanel {
             mostrarMensaje(resultado);
 
             if (!resultado.contains("Error")) {
-                mostrarMensaje(reciboService.generarRecibo(periodo, idArrendatario, fechaInicio, importe));
+                mostrarMensaje(reciboService.generarRecibo(idParcela, idArrendatario, fechaInicio, importe));
             }
         }
     }

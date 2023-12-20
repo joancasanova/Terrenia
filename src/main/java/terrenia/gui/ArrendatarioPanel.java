@@ -194,8 +194,8 @@ public class ArrendatarioPanel extends JPanel {
         if (validarCamposAgregar()) {
             java.util.Date utilDate = new java.util.Date();
             String resultado = arrendatarioService.agregarArrendatario(
-                    nombreFieldAgregar.getText(),
                     dniFieldAgregar.getText(),
+                    nombreFieldAgregar.getText(),
                     Integer.parseInt(edadFieldAgregar.getText()),
                     sexoFieldAgregar.getText(),
                     emailFieldAgregar.getText(),

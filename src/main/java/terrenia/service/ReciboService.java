@@ -70,8 +70,8 @@ public class ReciboService {
     }
 
     private String enviarRecibo(Recibo recibo) {
-        final String from = "juancasanovaferrer@gmail.com";
-        final String password = "mdreufermpfsnzkz ";
+        final String from = "mail@mail.com";
+        final String password = "";
 
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
